@@ -74,7 +74,6 @@ public class CalcCli {
                 System.out.print("\n");
             }
             while (remote.checkWin(remote.getSea2()) & remote.checkWin(remote.getSea())) {
-
                 if (remote.getMes() == 400) {
                     System.out.println("Your step: x,y");
                     int x = in2.nextInt();
@@ -82,20 +81,31 @@ public class CalcCli {
                     seaPlayerOne = remote.getSea2();
                     seaPlayerOne = remote.hitShip(seaPlayerOne, 400, x, y);
                     remote.setSea2(seaPlayerOne);
-                    System.out.println(remote.getMes());
                     if(!remote.isUpdate()) System.out.println("wait");
+                    Thread.sleep(1000L);
                 }
                 if (remote.getMes() == 200 & remote.isUpdate()) {
                     seaPlayerTwo = remote.getSea();
-                    remote.printSea(seaPlayerTwo);
+                    System.out.println("\n");
+                    for (int n = 0; n < 10; n++) {
+                        for (int m = 0; m < 10; m++) {
+                            System.out.print("[" + seaPlayerTwo[m][n] + "]");
+                        }
+                        System.out.print("\n");
+                    }
                     System.out.println("wait");
-                    System.out.println(remote.getMes());
+                    Thread.sleep(1000L);
                 }
                 remote.changeUpd(false);
+
 
             }
             if (remote.checkWin(remote.getSea())) System.out.println("YOU WIN");
             else System.out.println("YOU LOSE");
+            while (remote.getMes() == 0) {
+                Thread.sleep(1000L);
+            }
+            remote.ping();
         } catch (Exception e) {
             e.printStackTrace();
         }

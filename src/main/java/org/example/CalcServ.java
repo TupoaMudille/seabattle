@@ -59,24 +59,32 @@ public class CalcServ {
             srv.printSea(srv.seaPlayerOne);
             //server first started
             while (srv.checkWin(srv.seaPlayerTwo) & srv.checkWin(srv.seaPlayerOne)) {
+
                 if (srv.mes == 200) {
                     System.out.println("Your step: x,y");
                     int x = in.nextInt();
                     int y = in.nextInt();
                     srv.hitShip(srv.seaPlayerTwo, 200, x, y);
                     if(!srv.isUpd) System.out.println("wait");
-                    System.out.println(srv.mes);
+                    Thread.sleep(1000L);
                 }
                 if (srv.mes == 400 & srv.isUpdate()) {
                     srv.printSea(srv.seaPlayerOne);
                     System.out.println("wait");
-                    System.out.println(srv.mes);
+                    Thread.sleep(1000L);
                 }
                 srv.isUpd = false;
+
 
             }
             if (srv.checkWin(srv.seaPlayerOne)) System.out.println("YOU WIN");
             else System.out.println("YOU LOSE");
+            srv.mes=0;
+            srv.pong();
+            while (srv.mes == 400) {
+                Thread.sleep(1000L);
+            }
+            System.exit(0);
         } catch (Exception e) {
             e.printStackTrace();
         }
